@@ -16,17 +16,17 @@
         // Sets Deno as the default formatter for the project
         "editor.defaultFormatter": "denoland.vscode-deno",
         "[yaml]": {
-          "editor.defaultFormatter": "redhat.vscode-yaml",
+          "editor.defaultFormatter": "redhat.vscode-yaml"
         },
         // Enables format on save
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": true
       },
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
         "denoland.vscode-deno",
         "redhat.vscode-yaml"
       ]
-    },
+    }
   },
   "remoteUser": "vscode"
 }
