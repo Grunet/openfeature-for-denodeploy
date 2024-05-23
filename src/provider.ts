@@ -46,7 +46,7 @@ class DenoProvider implements Provider {
     }
     this.#flagState = kvJson.value;
 
-    this.#flagdCoreInstance.setConfigurations(this.#flagState);
+    this.#flagdCoreInstance.setConfigurations(this.#flagState ?? "");
   }
 
   resolveBooleanEvaluation(
