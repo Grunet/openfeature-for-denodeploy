@@ -16,6 +16,10 @@
         "deno.lint": true,
         // Sets Deno as the default formatter for the project
         "editor.defaultFormatter": "denoland.vscode-deno",
+        "[yaml]": {
+          "editor.defaultFormatter": "redhat.vscode-yaml"
+          }
+        },
         // Enables format on save
         "editor.formatOnSave": true
       },
