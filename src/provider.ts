@@ -119,6 +119,12 @@ class DenoProvider implements Provider {
   }
 }
 
+/**
+ * Create an OpenFeature provider intended for usage on Deno Deploy
+ * It will pull feature flag state from KV when evaluating feature flags
+ * @param kv A Deno.kv connection (e.g. obtained from Deno.openKv per https://deno.land/api@v1.43.6?s=Deno.openKv&unstable=)
+ * @returns an instance of the provider
+ */
 function createProvider(kv: Deno.Kv): Provider {
   return new DenoProvider(kv);
 }
