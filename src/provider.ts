@@ -33,7 +33,7 @@ class DenoProvider implements Provider {
     this.#flagdCoreInstance = new FlagdCore(); // FYI this can take parameters - https://github.com/open-feature/js-sdk-contrib/blob/a389d4f858e3bf72addd92755755a55d6d470d2b/libs/providers/flagd/src/lib/service/in-process/in-process-service.ts#L18
   }
 
-  #flagState: string | undefined = "";
+  #flagState: string | undefined = undefined;
 
   async initialize?(_context?: EvaluationContext | undefined): Promise<void> {
     const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
