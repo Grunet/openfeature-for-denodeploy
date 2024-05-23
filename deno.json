@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "format": "deno fmt",
+    "checkFormatting": "deno fmt --check",
+    "lint": "deno lint",
+    "checkTypes": "deno check ./src/index.ts",
+    "lintJsDoc": "deno doc --lint ./src/index.ts",
+    "checkJsDocTypes": "deno test --doc"
+  }
+}
