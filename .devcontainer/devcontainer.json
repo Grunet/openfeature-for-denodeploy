@@ -21,12 +21,12 @@
         // Enables format on save
         "editor.formatOnSave": true,
       },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "denoland.vscode-deno",
+        "redhat.vscode-yaml"
+      ]
     },
-    // Add the IDs of extensions you want installed when the container is created.
-    "extensions": [
-      "denoland.vscode-deno",
-      "redhat.vscode-yaml"
-    ]
   },
   "remoteUser": "vscode"
 }
