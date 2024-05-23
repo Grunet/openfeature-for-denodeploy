@@ -18,9 +18,9 @@
         "[yaml]": {
           "editor.defaultFormatter": "redhat.vscode-yaml",
         },
+        // Enables format on save
+        "editor.formatOnSave": true,
       },
-      // Enables format on save
-      "editor.formatOnSave": true
     },
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
