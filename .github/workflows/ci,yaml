@@ -1,7 +1,5 @@
 name: CI
-on:
-  pull_request:
-    types: [synchronize]
+on: push
 
 jobs:
   ci:
