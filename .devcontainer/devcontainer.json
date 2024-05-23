@@ -3,7 +3,6 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-
   // Configure tool-specific properties.
   "customizations": {
     // Configure properties specific to VS Code.
@@ -14,12 +13,17 @@
         "deno.enable": true,
         // Enables Deno linting for the project
         "deno.lint": true,
-        // Sets Deno as the default formatter for the project
-        "editor.defaultFormatter": "denoland.vscode-deno",
+        // Sets Deno as the formatter for Typescript files
+        "[typescript]": {
+          "editor.defaultFormatter": "denoland.vscode-deno"
+        },
+        // Uses the Redhat extension to format YAML files
+        "[yaml]": {
+          "editor.defaultFormatter": "redhat.vscode-yaml"
+        },
         // Enables format on save
         "editor.formatOnSave": true
       },
-
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
         "denoland.vscode-deno",
@@ -27,6 +31,5 @@
       ]
     }
   },
-
   "remoteUser": "vscode"
 }
