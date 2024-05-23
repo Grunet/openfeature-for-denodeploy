@@ -2,6 +2,7 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "npm:@openfeature/core@1.2.0": "npm:@openfeature/core@1.2.0",
       "npm:@openfeature/flagd-core@0.2.2": "npm:@openfeature/flagd-core@0.2.2_@openfeature+core@1.2.0",
       "npm:@openfeature/server-sdk@1.14.0": "npm:@openfeature/server-sdk@1.14.0_@openfeature+core@1.2.0"
     },
