@@ -14,7 +14,7 @@
         // Enables Deno linting for the project
         "deno.lint": true,
         // Sets Deno as the formatter for Typescript files
-        "[typescript]": {
+        "[typescript,markdown]": {
           "editor.defaultFormatter": "denoland.vscode-deno"
         },
         // Uses the Redhat extension to format YAML files
