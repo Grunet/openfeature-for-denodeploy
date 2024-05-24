@@ -3,7 +3,7 @@ import { createKvClient, createProvider } from "./index.ts";
 import { assertEquals } from "jsr:@std/assert@0.225.3";
 import { OpenFeature } from "npm:@openfeature/server-sdk@1.14.0";
 
-Deno.test("happy path", async () => {
+Deno.test("Happy path", async () => {
   const kv = await Deno.openKv(":memory:");
 
   try {

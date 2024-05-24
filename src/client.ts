@@ -6,8 +6,8 @@ import { FEATURE_FLAGS_KEY } from "./constants.ts";
  */
 interface IKvClient {
   /**
-   * Updates KV with the JSON/YAML from a feature flag definition file (see https://flagd.dev/reference/flag-definitions/ for how these files are defined)
-   * @param configAsString The JSON/YAML stored in a feature flag definition file (use Deno.readTextFile to extract the JSON/YAML to pass in here)
+   * Updates KV with the JSON from a feature flag definition file (see https://flagd.dev/reference/flag-definitions/ for how these files are defined)
+   * @param configAsString The JSON stored in a feature flag definition file (use Deno.readTextFile to extract the JSON to pass in here)
    */
   updateFlagDefinitions(configAsString: string): Promise<void>;
 }
