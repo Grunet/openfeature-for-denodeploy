@@ -34,6 +34,9 @@ class DenoProvider implements Provider {
   }
 
   #flagDefinitions: string | null = null;
+  #flagDefinitionsWatchStream:
+    | ReadableStream<[Deno.KvEntryMaybe<unknown>]>
+    | undefined;
 
   async initialize?(_context?: EvaluationContext | undefined): Promise<void> {
     try {
@@ -48,17 +51,47 @@ class DenoProvider implements Provider {
     }
   }
 
-  #saveFlagDefinitions(config: unknown) {
+  #saveFlagDefinitions(flagDefinitions: unknown) {
     if (
-      typeof config !== "string" && config !== null
+      typeof flagDefinitions !== "string" && flagDefinitions !== null
     ) {
       throw new Error(
         `Flag definitions stored in KV at key [${FEATURE_FLAGS_KEY}] was unexpectedly neither a string nor null`,
       );
     }
 
-    this.#flagDefinitions = config;
+    this.#flagDefinitions = flagDefinitions;
     this.#flagdCoreInstance.setConfigurations(this.#flagDefinitions ?? "{}");
+
+    this.#watchFlagDefinitions();
+  }
+
+  async #watchFlagDefinitions() {
+    this.#flagDefinitionsWatchStream = this.#kv.watch([[FEATURE_FLAGS_KEY]]);
+    for await (const entries of this.#flagDefinitionsWatchStream) {
+      const flagDefinitions = entries[0].value;
+
+      // The watch can send the same update repeatedly, so shorting it here
+      if (this.#flagDefinitions === flagDefinitions) {
+        continue;
+      }
+
+      try {
+        this.#saveFlagDefinitions(flagDefinitions);
+      } catch (error) {
+        console.error(error);
+        console.log("Old flag definitions:", this.#flagDefinitions);
+        console.log("New flag definitions:", flagDefinitions);
+
+        continue;
+      }
+    }
+  }
+
+  onClose?(): Promise<void> {
+    this.#flagDefinitionsWatchStream?.cancel();
+
+    return Promise.resolve();
   }
 
   resolveBooleanEvaluation(
@@ -124,11 +157,6 @@ class DenoProvider implements Provider {
 
   // implement with "new OpenFeatureEventEmitter()", and use "emit()" to emit events
   events?: ProviderEventEmitter<AnyProviderEvent> | undefined;
-
-  onClose?(): Promise<void> {
-    // code to shut down your provider
-    return Promise.resolve();
-  }
 }
 
 /**
