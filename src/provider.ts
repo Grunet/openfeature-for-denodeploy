@@ -36,17 +36,22 @@ class DenoProvider implements Provider {
   #flagState: string | undefined = undefined;
 
   async initialize?(_context?: EvaluationContext | undefined): Promise<void> {
-    const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
-    if (
-      typeof kvJson.value !== "string" && typeof kvJson.value !== "undefined"
-    ) {
-      throw new Error(
-        `Flag state stored in KV at key [${FEATURE_FLAGS_KEY}] was unexpectedly neither a string nor undefined`,
-      );
-    }
-    this.#flagState = kvJson.value;
+    try {
+      const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
+      if (
+        typeof kvJson.value !== "string" && typeof kvJson.value !== "undefined"
+      ) {
+        throw new Error(
+          `Flag state stored in KV at key [${FEATURE_FLAGS_KEY}] was unexpectedly neither a string nor undefined`,
+        );
+      }
+      this.#flagState = kvJson.value;
 
-    this.#flagdCoreInstance.setConfigurations(this.#flagState ?? "");
+      this.#flagdCoreInstance.setConfigurations(this.#flagState ?? "");
+    } catch (error) {
+      // No-op in case something went wrong (e.g. the flags defintion file not being parseable)
+      console.error(error);
+    }
   }
 
   resolveBooleanEvaluation(

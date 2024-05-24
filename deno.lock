@@ -2,9 +2,22 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "jsr:@std/assert@0.225.3": "jsr:@std/assert@0.225.3",
+      "jsr:@std/internal@^1.0.0": "jsr:@std/internal@1.0.0",
       "npm:@openfeature/core@1.2.0": "npm:@openfeature/core@1.2.0",
       "npm:@openfeature/flagd-core@0.2.2": "npm:@openfeature/flagd-core@0.2.2_@openfeature+core@1.2.0",
       "npm:@openfeature/server-sdk@1.14.0": "npm:@openfeature/server-sdk@1.14.0_@openfeature+core@1.2.0"
+    },
+    "jsr": {
+      "@std/assert@0.225.3": {
+        "integrity": "b3c2847aecf6955b50644cdb9cf072004ea3d1998dd7579fc0acb99dbb23bd4f",
+        "dependencies": [
+          "jsr:@std/internal@^1.0.0"
+        ]
+      },
+      "@std/internal@1.0.0": {
+        "integrity": "ac6a6dfebf838582c4b4f61a6907374e27e05bedb6ce276e0f1608fe84e7cd9a"
+      }
     },
     "npm": {
       "@openfeature/core@1.2.0": {
