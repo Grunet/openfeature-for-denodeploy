@@ -2,9 +2,12 @@
 
 ## What is It?
 
-A feature flagging library for use on Deno Deploy, built on top of [OpenFeature](https://openfeature.dev/).
+A feature flagging library for use on Deno Deploy, built on top of
+[OpenFeature](https://openfeature.dev/).
 
-A feature flag is a context-aware configuration point, often used for decoupling application releases from deploys, experimentation, and progressively rolling out code changes.
+A feature flag is a context-aware configuration point, often used for decoupling
+application releases from deploys, experimentation, and progressively rolling
+out code changes.
 
 ## How Does It Work?
 
@@ -17,9 +20,14 @@ There are 4 steps to start using feature flags with the library:
 
 ### Declaring Feature Flag Definitions in a JSON File
 
-Create a JSON file called `flags.json` following the rules at https://flagd.dev/reference/flag-definitions/ (you can start with an empty object `{}` if you don't have any flags to define just yet). You can also find other examples at https://github.com/open-feature/flagd/tree/main/config/samples.
+Create a JSON file called `flags.json` following the rules at
+https://flagd.dev/reference/flag-definitions/ (you can start with an empty
+object `{}` if you don't have any flags to define just yet). You can also find
+other examples at
+https://github.com/open-feature/flagd/tree/main/config/samples.
 
 You should end up with something like this
+
 ```json
 {
   "$schema": "https://flagd.dev/schema/v0/flags.json",
@@ -73,21 +81,26 @@ Before you can run it you'll need to get 2 things
 1. The URL to connect to KV with from the Deno CLI
 2. A Deno Deploy access token
 
-The former can be found at ```https://dash.deno.com/projects/<your project name>/kv```. Update the ```urlToKv``` variable in the script with its value.
+The former can be found at
+`https://dash.deno.com/projects/<your project name>/kv`. Update the `urlToKv`
+variable in the script with its value.
 
 The latter can be created at https://dash.deno.com/account#access-tokens.
 
-To run the script you'll want to run the following command from the script's working directory, substituting in your access token for the placeholder.
+To run the script you'll want to run the following command from the script's
+working directory, substituting in your access token for the placeholder.
 
 ```bash
 DENO_KV_ACCESS_TOKEN=<replace with your access token> deno run --unstable-kv --allow-read=flags.json --allow-env=DENO_KV_ACCESS_TOKEN --allow-net updateKv.ts
 ```
 
-This will store the flag definitions JSON into KV in Deno Deploy for your project.
+This will store the flag definitions JSON into KV in Deno Deploy for your
+project.
 
 ### Have the Feature Flagging Library Reference that JSON
 
-If you're using a `deps.ts` file or similar to centralize your dependencies, you can add a few lines to it to initialize the feature flagging library
+If you're using a `deps.ts` file or similar to centralize your dependencies, you
+can add a few lines to it to initialize the feature flagging library
 
 ```ts
 import { createProvider } from "jsr:@grunet/openfeature-for-denodeploy";
@@ -100,18 +113,26 @@ await OpenFeature.setProviderAndWait(provider);
 
 const client = OpenFeature.getClient();
 
-export { client }
+export { client };
 ```
 
-This will automatically read the flag definitions JSON from KV and initialize the library with it. It will also setup a KV watcher so that if the flag definitions JSON is updated later, the library will update too.
+This will automatically read the flag definitions JSON from KV and initialize
+the library with it. It will also setup a KV watcher so that if the flag
+definitions JSON is updated later, the library will update too.
 
 ### Start Evaluating Feature Flags in Application Code
 
-This can be done in several ways depending on if the flag is a boolean flag, a string flag, a number flag, or an object flag. But they all look the same like in this example
+This can be done in several ways depending on if the flag is a boolean flag, a
+string flag, a number flag, or an object flag. But they all look the same like
+in this example
 
 ```ts
 const boolEval = await client.getBooleanValue("flag-name", false, {
-    email: "test@example.com",
-  });
+  email: "test@example.com",
+});
 ```
-The 2nd parameter in the function call is the default value to use if something goes wrong with the library's evaluation. The 3rd parameter is a context object that will be evaluated against the flag definitions' attribute targeting rules for matches. 
+
+The 2nd parameter in the function call is the default value to use if something
+goes wrong with the library's evaluation. The 3rd parameter is a context object
+that will be evaluated against the flag definitions' attribute targeting rules
+for matches.
