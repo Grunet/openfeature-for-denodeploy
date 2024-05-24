@@ -6,7 +6,8 @@
       "jsr:@std/internal@^1.0.0": "jsr:@std/internal@1.0.0",
       "npm:@openfeature/core@1.2.0": "npm:@openfeature/core@1.2.0",
       "npm:@openfeature/flagd-core@0.2.2": "npm:@openfeature/flagd-core@0.2.2_@openfeature+core@1.2.0",
-      "npm:@openfeature/server-sdk@1.14.0": "npm:@openfeature/server-sdk@1.14.0_@openfeature+core@1.2.0"
+      "npm:@openfeature/server-sdk@1.14.0": "npm:@openfeature/server-sdk@1.14.0_@openfeature+core@1.2.0",
+      "npm:@types/node": "npm:@types/node@18.16.19"
     },
     "jsr": {
       "@std/assert@0.225.3": {
@@ -41,6 +42,10 @@
         "dependencies": {
           "@openfeature/core": "@openfeature/core@1.2.0"
         }
+      },
+      "@types/node@18.16.19": {
+        "integrity": "sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==",
+        "dependencies": {}
       },
       "ajv@8.13.0": {
         "integrity": "sha512-PRA911Blj99jR5RMeTunVbNXMF6Lp4vZXnk5GQjcnUWUTsrXtekg/pnmFFI2u/I36Y/2bITGS30GZCXei6uNkA==",
