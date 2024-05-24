@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.1
+
+- Add missing documentation into the README
+- Add example files for how to use on Deno Deploy
+
 ## v0.1.0
 
 Initial functionality
