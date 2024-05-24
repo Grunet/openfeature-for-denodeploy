@@ -126,7 +126,7 @@ This can be done in several ways depending on if the flag is a boolean flag, a
 string flag, a number flag, or an object flag. But they all look the same like
 in this example
 
-```ts
+```js
 const boolEval = await client.getBooleanValue("flag-name", false, {
   email: "test@example.com",
 });
