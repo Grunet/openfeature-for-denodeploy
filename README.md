@@ -11,7 +11,7 @@ changes.
 
 ## How Does It Work?
 
-There are 4 steps to start using feature flags with the library:
+There are 4 steps to start using feature flags with this library:
 
 1. Declare feature flag definitions in a JSON file
 2. Upload that JSON file to KV
