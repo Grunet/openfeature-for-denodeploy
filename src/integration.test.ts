@@ -38,3 +38,27 @@ Deno.test("happy path", async () => {
     kv.close();
   }
 });
+
+Deno.test("No configuration has been set in KV", async () => {
+  const kv = await Deno.openKv(":memory:");
+
+  try {
+    // Arrange
+
+    // Missing the steps to set config into KV
+
+    const provider = createProvider(kv);
+
+    await OpenFeature.setProviderAndWait(provider);
+
+    const client = OpenFeature.getClient();
+
+    // Act
+    const flagEvaluation = await client.getBooleanValue("myBoolFlag", false);
+
+    // Assert
+    assertEquals(flagEvaluation, false); // Matching the default value from above
+  } finally {
+    kv.close();
+  }
+});
