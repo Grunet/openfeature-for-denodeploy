@@ -8,7 +8,7 @@
     "lint": "deno lint",
     "checkTypes": "deno check ./src/index.ts",
     "lintJsDoc": "deno doc --lint ./src/index.ts",
-    "checkJsDocTypes": "deno test --doc",
+    "checkJsDocTypes": "deno --unstable-kv test --doc",
     "test": "deno --unstable-kv test",
     "publishDryRun": "deno publish --dry-run",
     "publish": "deno publish"
