@@ -1,6 +1,6 @@
 // Run from this as the working directory with the following
 // DENO_KV_ACCESS_TOKEN=<Gotten from https://dash.deno.com/account#access-tokens> deno run --unstable-kv --allow-read=flags.json --allow-env=DENO_KV_ACCESS_TOKEN --allow-net updateKv.ts
-// Have to use --allow-net because wildcards aren't allowed (see https://github.com/denoland/deno/issues/6532)
+// Have to use --allow-net because wildcards aren't allowed and the CLI is reaching out to a URL like "us-east4.txnproxy.deno-gcp.net" (see https://github.com/denoland/deno/issues/6532)
 
 import { createKvClient } from "jsr:@grunet/openfeature-for-denodeploy";
 
