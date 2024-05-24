@@ -78,13 +78,26 @@ Deno.test("Happy path", async () => {
   }
 });
 
-Deno.test("No configuration set in KV", async () => {
+Deno.test("Configuration deleted from KV", async () => {
   const kv = await Deno.openKv(":memory:");
 
   try {
     // Arrange
-
-    // Missing the steps to set config into KV
+    const kvClient = createKvClient(kv);
+    await kvClient.updateFlagDefinitions(`{
+        "$schema": "https://flagd.dev/schema/v0/flags.json",
+        "flags": {
+          "myBoolFlag": {
+            "state": "ENABLED",
+            "variants": {
+              "on": true,
+              "off": false
+            },
+            "defaultVariant": "on"
+          }
+        }
+      }`);
+    await kvClient.deleteFlagDefinitions();
 
     const provider = createProvider(kv);
 

@@ -10,6 +10,10 @@ interface IKvClient {
    * @param configAsString The JSON stored in a feature flag definition file (use Deno.readTextFile to extract the JSON to pass in here)
    */
   updateFlagDefinitions(configAsString: string): Promise<void>;
+  /**
+   * Deletes the feature flag defintions stored in KV
+   */
+  deleteFlagDefinitions(): Promise<void>;
 }
 
 class KvClient implements IKvClient {
@@ -21,6 +25,10 @@ class KvClient implements IKvClient {
 
   async updateFlagDefinitions(configAsString: string): Promise<void> {
     await this.#kv.set([FEATURE_FLAGS_KEY], configAsString);
+  }
+
+  async deleteFlagDefinitions(): Promise<void> {
+    await this.#kv.delete([FEATURE_FLAGS_KEY]);
   }
 }
 
