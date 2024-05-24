@@ -10,18 +10,46 @@ Deno.test("Happy path", async () => {
     // Arrange
     const kvClient = createKvClient(kv);
     await kvClient.updateFlagDefinitions(`{
-      "$schema": "https://flagd.dev/schema/v0/flags.json",
-      "flags": {
-        "myBoolFlag": {
-          "state": "ENABLED",
-          "variants": {
-            "on": true,
-            "off": false
+        "$schema": "https://flagd.dev/schema/v0/flags.json",
+        "flags": {
+          "myBoolFlag": {
+            "state": "ENABLED",
+            "variants": {
+              "on": true,
+              "off": false
+            },
+            "defaultVariant": "on"
           },
-          "defaultVariant": "on"
+          "myStringFlag": {
+            "state": "ENABLED",
+            "variants": {
+              "key1": "val1",
+              "key2": "val2"
+            },
+            "defaultVariant": "key1"
+          },
+          "myNumberFlag": {
+            "state": "ENABLED",
+            "variants": {
+              "one": 1,
+              "two": 2
+            },
+            "defaultVariant": "one"
+          },
+          "myObjectFlag": {
+            "state": "ENABLED",
+            "variants": {
+              "object1": {
+                "key": "val"
+              },
+              "object2": {
+                "key": true
+              }
+            },
+            "defaultVariant": "object1"
+          }
         }
-    }
-  }`);
+      }`);
 
     const provider = createProvider(kv);
 
@@ -30,10 +58,21 @@ Deno.test("Happy path", async () => {
     const client = OpenFeature.getClient();
 
     // Act
-    const flagEvaluation = await client.getBooleanValue("myBoolFlag", false); // Setting the default value to something different than the expected value
+
+    // Setting the default value to something different than the expected value each time
+
+    const boolEval = await client.getBooleanValue("myBoolFlag", false);
+    const stringEval = await client.getStringValue("myStringFlag", "val2");
+    const numberEval = await client.getNumberValue("myNumberFlag", 2);
+    const objectEval = await client.getObjectValue("myObjectFlag", {
+      "key": true,
+    });
 
     // Assert
-    assertEquals(flagEvaluation, true);
+    assertEquals(boolEval, true);
+    assertEquals(stringEval, "val1");
+    assertEquals(numberEval, 1);
+    assertEquals(objectEval, { "key": "val" });
   } finally {
     kv.close();
   }
