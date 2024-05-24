@@ -1,6 +1,6 @@
 {
   "name": "@grunet/openfeature-for-denodeploy",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "exports": "./src/index.ts",
   "tasks": {
     "format": "deno fmt",
@@ -8,7 +8,8 @@
     "lint": "deno lint",
     "checkTypes": "deno check ./src/index.ts",
     "lintJsDoc": "deno doc --lint ./src/index.ts",
-    "checkJsDocTypes": "deno test --doc",
+    "checkJsDocTypes": "deno --unstable-kv test --doc",
+    "test": "deno --unstable-kv test",
     "publishDryRun": "deno publish --dry-run",
     "publish": "deno publish"
   }
