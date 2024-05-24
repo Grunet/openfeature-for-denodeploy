@@ -69,6 +69,7 @@ Deno.test("Unexpected data set into KV", async () => {
   try {
     // Arrange
     const kvClient = createKvClient(kv);
+    // deno-lint-ignore no-explicit-any -- need to explictly set bad data
     await kvClient.updateFlagDefinitions(undefined as any);
 
     const provider = createProvider(kv);
