@@ -1,0 +1,27 @@
+{
+  "$schema": "https://flagd.dev/schema/v0/flags.json",
+
+  "flags": {
+    "new-welcome-banner": {
+      "state": "ENABLED",
+
+      "variants": {
+        "on": true,
+
+        "off": false
+      },
+
+      "defaultVariant": "off",
+
+      "targeting": {
+        "if": [
+          { "ends_with": [{ "var": "email" }, "@example.com"] },
+
+          "on",
+
+          "off"
+        ]
+      }
+    }
+  }
+}
