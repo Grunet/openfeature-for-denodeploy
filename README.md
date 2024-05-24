@@ -132,7 +132,7 @@ const boolEval = await client.getBooleanValue("flag-name", false, {
 });
 ```
 
-The 2nd parameter in the function call is the default value to use if something
-goes wrong with the library's evaluation. The 3rd parameter is a context object
-that will be evaluated against the flag definitions' attribute targeting rules
-for matches.
+The 2nd parameter in the function call is the default value to return if
+something goes wrong with the library's evaluation. The 3rd parameter is a
+context object that will be evaluated against the flag definitions' attribute
+targeting rules for matches.
