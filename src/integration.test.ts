@@ -39,7 +39,7 @@ Deno.test("happy path", async () => {
   }
 });
 
-Deno.test("No configuration has been set in KV", async () => {
+Deno.test("No configuration set in KV", async () => {
   const kv = await Deno.openKv(":memory:");
 
   try {
