@@ -47,12 +47,12 @@ class DenoProvider implements Provider {
       }
       this.#flagDefinitions = kvJson.value;
 
-      this.#flagdCoreInstance.setConfigurations(this.#flagDefinitions ?? "");
+      this.#flagdCoreInstance.setConfigurations(this.#flagDefinitions ?? "{}");
     } catch (error) {
       // No-op in case something went wrong (e.g. the flags defintion file not being parseable)
       // FlagdCore should default to returning default values if this happens
       console.error(error);
-      console.log("Flag definitions: ", this.#flagDefinitions);
+      console.log("Flag definitions:", this.#flagDefinitions);
     }
   }
 
