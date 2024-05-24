@@ -62,3 +62,27 @@ Deno.test("No configuration set in KV", async () => {
     kv.close();
   }
 });
+
+Deno.test("Unexpected data set into KV", async () => {
+  const kv = await Deno.openKv(":memory:");
+
+  try {
+    // Arrange
+    const kvClient = createKvClient(kv);
+    await kvClient.updateFlagDefinitions(undefined as any);
+
+    const provider = createProvider(kv);
+
+    await OpenFeature.setProviderAndWait(provider);
+
+    const client = OpenFeature.getClient();
+
+    // Act
+    const flagEvaluation = await client.getBooleanValue("myBoolFlag", false);
+
+    // Assert
+    assertEquals(flagEvaluation, false); // Matching the default value
+  } finally {
+    kv.close();
+  }
+});
