@@ -1,1 +1,1 @@
-export const FEATURE_FLAGS_KEY = "featureFlagsSomeReallyUniqueKey";
+export const FEATURE_FLAGS_KEY = "featureFlagDefinitionsSomeReallyUniqueKey";
