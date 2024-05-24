@@ -137,3 +137,16 @@ something goes wrong with the library's evaluation.
 
 The 3rd parameter is a context object that will be evaluated against the flag
 definitions' attribute targeting rules for matches.
+
+## Other Recommendations
+
+There are 2 suggestions I'd recommend to complete the overall workflow
+
+1. Version Control
+2. Automation
+
+Keeping the flag definitions in a VCS has all the usual benefits of keeping
+things in version control.
+
+Then automating updates to the flag definitions (e.g. via Github Actions) also
+brings the usual benefits.
