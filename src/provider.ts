@@ -38,22 +38,27 @@ class DenoProvider implements Provider {
   async initialize?(_context?: EvaluationContext | undefined): Promise<void> {
     try {
       const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
-      if (
-        typeof kvJson.value !== "string" && kvJson.value !== null
-      ) {
-        throw new Error(
-          `Flag state stored in KV at key [${FEATURE_FLAGS_KEY}] was unexpectedly neither a string nor null`,
-        );
-      }
-      this.#flagDefinitions = kvJson.value;
 
-      this.#flagdCoreInstance.setConfigurations(this.#flagDefinitions ?? "{}");
+      this.#saveFlagDefinitions(kvJson.value);
     } catch (error) {
       // No-op in case something went wrong (e.g. the flags defintion file not being parseable)
       // FlagdCore should default to returning default values if this happens
       console.error(error);
       console.log("Flag definitions:", this.#flagDefinitions);
     }
+  }
+
+  #saveFlagDefinitions(config: unknown) {
+    if (
+      typeof config !== "string" && config !== null
+    ) {
+      throw new Error(
+        `Flag definitions stored in KV at key [${FEATURE_FLAGS_KEY}] was unexpectedly neither a string nor null`,
+      );
+    }
+
+    this.#flagDefinitions = config;
+    this.#flagdCoreInstance.setConfigurations(this.#flagDefinitions ?? "{}");
   }
 
   resolveBooleanEvaluation(
