@@ -9,7 +9,7 @@ Deno.test("happy path", async () => {
   try {
     // Arrange
     const kvClient = createKvClient(kv);
-    await kvClient.updateFlagsFromJson(`{
+    await kvClient.updateFlagDefinitions(`{
       "$schema": "https://flagd.dev/schema/v0/flags.json",
       "flags": {
         "myBoolFlag": {
