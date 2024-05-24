@@ -6,8 +6,8 @@ A feature flagging library for use on Deno Deploy, built on top of
 [OpenFeature](https://openfeature.dev/).
 
 A feature flag is a context-aware configuration point, often used for decoupling
-application releases from deploys, experimentation, and progressively rolling
-out code changes.
+application releases from deploys, experimentation, and safely rolling out code
+changes.
 
 ## How Does It Work?
 
