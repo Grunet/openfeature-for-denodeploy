@@ -17,4 +17,5 @@ jobs:
       - run: deno task checkTypes
       - run: deno task lintJsDoc
       - run: deno task checkJsDocTypes
+      - run: deno task test
       - run: deno task publishDryRun
