@@ -60,7 +60,7 @@ You should end up with something like this
 
 ### Upload the JSON File to KV
 
-Create a script called `updateKv.ts` as follows
+Create a script called `updateKv.ts` (for use with the Deno CLI) as follows
 
 ```ts
 import { createKvClient } from "jsr:@grunet/openfeature-for-denodeploy";
@@ -78,7 +78,7 @@ await client.updateFlagDefinitions(json);
 
 Before you can run it you'll need to get 2 things
 
-1. The URL to connect to KV with from the Deno CLI
+1. The URL with which to connect to Deno Deploy's KV from the Deno CLI
 2. A Deno Deploy access token
 
 The former can be found at
@@ -118,22 +118,24 @@ export { client };
 
 This will automatically read the flag definitions JSON from KV and initialize
 the library with it. It will also setup a KV watcher so that if the flag
-definitions JSON is updated later, the library will update too.
+definitions JSON is updated later on, the library will update too.
 
 ### Start Evaluating Feature Flags in Application Code
 
 This can be done in several ways depending on if the flag is a boolean flag, a
-string flag, a number flag, or an object flag. But they all look the same like
-in this example
+string flag, a number flag, or an object flag. But they all look similar to this
+example
 
 ```js
-const boolEval = await client.getBooleanValue("flag-name", false, {
+const boolEval = await client.getBooleanValue("new-welcome-banner", false, {
   email: "test@example.com",
 });
 ```
 
-The 2nd parameter in the function call is the default value to return if
-something goes wrong with the library's evaluation.
+The 1st parameter in the function call is the name of the feature flag.
+
+The 2nd parameter is the default value to return if something goes wrong with
+the library's evaluation.
 
 The 3rd parameter is a context object that will be evaluated against the flag
 definitions' attribute targeting rules for matches.
