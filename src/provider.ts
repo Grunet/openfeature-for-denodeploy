@@ -61,7 +61,7 @@ class DenoProvider implements Provider {
       );
     }
 
-    this.#flagdCoreInstance.setConfigurations(this.#flagDefinitions ?? "{}");
+    this.#flagdCoreInstance.setConfigurations(flagDefinitions ?? "{}");
     this.#flagDefinitions = flagDefinitions;
   }
 
