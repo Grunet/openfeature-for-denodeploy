@@ -39,15 +39,17 @@ class DenoProvider implements Provider {
     | undefined;
 
   async initialize?(_context?: EvaluationContext | undefined): Promise<void> {
-    try {
-      const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
+    const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
 
+    try {
       this.#saveFlagDefinitions(kvJson.value);
       this.#watchFlagDefinitions();
     } catch (error) {
       // No-op in case something went wrong (e.g. the flags definition file not being parseable)
       // FlagdCore should default to returning default values if this happens
       console.error(error);
+      console.log("Old flag definitions:", this.#flagDefinitions);
+      console.log("New flag definitions:", kvJson.value);
     }
   }
 
