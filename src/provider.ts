@@ -43,6 +43,7 @@ class DenoProvider implements Provider {
       const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
 
       this.#saveFlagDefinitions(kvJson.value);
+      this.#watchFlagDefinitions();
     } catch (error) {
       // No-op in case something went wrong (e.g. the flags defintion file not being parseable)
       // FlagdCore should default to returning default values if this happens
@@ -62,8 +63,6 @@ class DenoProvider implements Provider {
 
     this.#flagDefinitions = flagDefinitions;
     this.#flagdCoreInstance.setConfigurations(this.#flagDefinitions ?? "{}");
-
-    this.#watchFlagDefinitions();
   }
 
   async #watchFlagDefinitions() {
