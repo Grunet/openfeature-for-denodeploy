@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.4
+
+- Add a test for invalid flag definitions configuration
+
 ## v0.1.3
 
 - Minor improvements to the README
