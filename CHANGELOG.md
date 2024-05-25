@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.6
+
+- Update logging to be more consistent and helpful
+
 ## v0.1.5
 
 - Fix issue where the flag definitions member property can get out of sync with
