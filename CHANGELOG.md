@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.3
+
+- Minor improvements to the README
+
 ## v0.1.2
 
 - Fix creating a new KV watcher every time the flag definitions changed
