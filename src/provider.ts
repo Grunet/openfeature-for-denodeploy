@@ -45,10 +45,9 @@ class DenoProvider implements Provider {
       this.#saveFlagDefinitions(kvJson.value);
       this.#watchFlagDefinitions();
     } catch (error) {
-      // No-op in case something went wrong (e.g. the flags defintion file not being parseable)
+      // No-op in case something went wrong (e.g. the flags definition file not being parseable)
       // FlagdCore should default to returning default values if this happens
       console.error(error);
-      console.log("Flag definitions:", this.#flagDefinitions);
     }
   }
 
