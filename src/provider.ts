@@ -41,17 +41,21 @@ class DenoProvider implements Provider {
   async initialize?(_context?: EvaluationContext | undefined): Promise<void> {
     const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
 
+    this.#saveFlagDefinitionsWithErrorHandling(kvJson.value);
+
+    this.#watchFlagDefinitions();
+  }
+
+  #saveFlagDefinitionsWithErrorHandling(flagDefinitions: unknown) {
     try {
-      this.#saveFlagDefinitions(kvJson.value);
+      this.#saveFlagDefinitions(flagDefinitions);
     } catch (error) {
       // No-op in case something went wrong (e.g. the flags definition file not being parseable)
       // FlagdCore should default to returning default values if this happens
       console.error(error);
       console.log("Old flag definitions:", this.#flagDefinitions);
-      console.log("New flag definitions:", kvJson.value);
+      console.log("New flag definitions:", flagDefinitions);
     }
-
-    this.#watchFlagDefinitions();
   }
 
   #saveFlagDefinitions(flagDefinitions: unknown) {
@@ -77,15 +81,7 @@ class DenoProvider implements Provider {
         continue;
       }
 
-      try {
-        this.#saveFlagDefinitions(flagDefinitions);
-      } catch (error) {
-        console.error(error);
-        console.log("Old flag definitions:", this.#flagDefinitions);
-        console.log("New flag definitions:", flagDefinitions);
-
-        continue;
-      }
+      this.#saveFlagDefinitionsWithErrorHandling(flagDefinitions);
     }
   }
 
