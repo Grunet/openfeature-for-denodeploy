@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.7
+
+- Fix to the watch not getting setup if the initial config is invalid
+
 ## v0.1.6
 
 - Update logging to be more consistent and helpful
