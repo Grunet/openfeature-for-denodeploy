@@ -60,7 +60,7 @@ You should end up with something like this
 
 ### Upload the JSON File to KV
 
-Create a script called `updateKv.ts` as follows
+Create a script called `updateKv.ts` (for use with the Deno CLI) as follows
 
 ```ts
 import { createKvClient } from "jsr:@grunet/openfeature-for-denodeploy";
