@@ -227,3 +227,55 @@ Deno.test("Subsequent flag definition updates take hold", async () => {
     kv.close();
   }
 });
+
+Deno.test("Subsequent invalid flag definition updates do not take hold", async () => {
+  const kv = await Deno.openKv(":memory:");
+
+  try {
+    // Arrange
+    const kvClient = createKvClient(kv);
+    await kvClient.updateFlagDefinitions(`{
+        "$schema": "https://flagd.dev/schema/v0/flags.json",
+        "flags": {
+          "myBoolFlag": {
+            "state": "ENABLED",
+            "variants": {
+              "on": true,
+              "off": false
+            },
+            "defaultVariant": "on"
+          }
+        }
+      }`);
+
+    const provider = createProvider(kv);
+
+    await OpenFeature.setProviderAndWait(provider);
+
+    const client = OpenFeature.getClient();
+
+    // Act
+    const boolEval1 = await client.getBooleanValue("myBoolFlag", false); // Setting the default value to something different than the expected value
+
+    // Assert
+    assertEquals(boolEval1, true);
+
+    // Arrange
+    await kvClient.updateFlagDefinitions(`invalid configuration`);
+
+    // Need to give it at least a tick for the watch to register the new value
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("something");
+      }, 100);
+    });
+
+    // Act
+    const boolEval2 = await client.getBooleanValue("myBoolFlag", false); // Setting the default value to something different than the expected value
+
+    // Assert
+    assertEquals(boolEval2, true);
+  } finally {
+    kv.close();
+  }
+});
