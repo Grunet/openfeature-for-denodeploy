@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.5
+
+- Fix issue where the flag definitions member property can get out of sync with
+  what's stored in the FlagdCore instance and add some relevant tests
+
 ## v0.1.4
 
 - Add a test for invalid flag definitions configuration
