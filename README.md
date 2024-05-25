@@ -118,7 +118,7 @@ export { client };
 
 This will automatically read the flag definitions JSON from KV and initialize
 the library with it. It will also setup a KV watcher so that if the flag
-definitions JSON is updated later, the library will update too.
+definitions JSON is updated later on, the library will update too.
 
 ### Start Evaluating Feature Flags in Application Code
 
