@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.8
+
+- Refactor saving to reduce some code duplication
+
 ## v0.1.7
 
 - Fix to the watch not getting setup if the initial config is invalid
