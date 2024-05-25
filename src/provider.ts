@@ -43,7 +43,6 @@ class DenoProvider implements Provider {
 
     try {
       this.#saveFlagDefinitions(kvJson.value);
-      this.#watchFlagDefinitions();
     } catch (error) {
       // No-op in case something went wrong (e.g. the flags definition file not being parseable)
       // FlagdCore should default to returning default values if this happens
@@ -51,6 +50,8 @@ class DenoProvider implements Provider {
       console.log("Old flag definitions:", this.#flagDefinitions);
       console.log("New flag definitions:", kvJson.value);
     }
+
+    this.#watchFlagDefinitions();
   }
 
   #saveFlagDefinitions(flagDefinitions: unknown) {
