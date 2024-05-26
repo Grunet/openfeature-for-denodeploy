@@ -60,7 +60,8 @@ You should end up with something like this
 
 ### Upload the JSON File to KV
 
-Create a script called `updateKv.ts` (for use with the Deno CLI) as follows
+Create a script called `updateFlagDefinitionsInKv.ts` (for use with the Deno
+CLI) as follows
 
 ```ts
 import { createKvClient } from "jsr:@grunet/openfeature-for-denodeploy";
@@ -96,7 +97,7 @@ placeholders.
 export URL_TO_KV=<replace with the url to KV>
 export DENO_KV_ACCESS_TOKEN=<replace with your access token> 
 
-deno run --unstable-kv --allow-read=flags.json --allow-env=URL_TO_KV,DENO_KV_ACCESS_TOKEN --allow-net updateKv.ts
+deno run --unstable-kv --allow-read=flags.json --allow-env=URL_TO_KV,DENO_KV_ACCESS_TOKEN --allow-net updateFlagDefinitionsInKv.ts
 ```
 
 This will store the flag definitions JSON into KV in Deno Deploy for your
