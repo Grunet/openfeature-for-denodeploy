@@ -9,7 +9,8 @@
     "checkTypes": "deno check ./src/index.ts",
     "lintJsDoc": "deno doc --lint ./src/index.ts",
     "checkJsDocTypes": "deno --unstable-kv test --doc",
-    "test": "deno --unstable-kv test",
+    "test": "deno --unstable-kv test --coverage=cov_profile",
+    "testCoverage": "deno coverage cov_profile",
     "publishDryRun": "deno publish --dry-run",
     "publish": "deno publish"
   }
