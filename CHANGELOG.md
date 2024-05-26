@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.1
+
+- Update the example to use an environment variable instead of a hard-coded
+  string
+
 ## v0.2.0
 
 - Add a method to read the feature flag definitions from KV

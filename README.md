@@ -65,15 +65,16 @@ Create a script called `updateKv.ts` (for use with the Deno CLI) as follows
 ```ts
 import { createKvClient } from "jsr:@grunet/openfeature-for-denodeploy";
 
-const urlToKv =
-  "https://api.deno.com/databases/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/connect";
-
+const urlToKv = Deno.env.get("URL_TO_KV");
 const kv = await Deno.openKv(urlToKv);
 const client = createKvClient(kv);
 
 const json = await Deno.readTextFile("./flags.json");
 
 await client.updateFlagDefinitions(json);
+
+const flagDefinitions = await client.readFlagDefinitions();
+console.log("New flag definitions:", flagDefinitions);
 ```
 
 Before you can run it you'll need to get 2 things
@@ -82,16 +83,20 @@ Before you can run it you'll need to get 2 things
 2. A Deno Deploy access token
 
 The former can be found at
-`https://dash.deno.com/projects/<your project name>/kv`. Update the `urlToKv`
-variable in the script with its value.
+`https://dash.deno.com/projects/<your project name>/kv`. It should look like
+`"https://api.deno.com/databases/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/connect"`.
 
 The latter can be created at https://dash.deno.com/account#access-tokens.
 
-To run the script you'll want to run the following command from the script's
-working directory, substituting in your access token for the placeholder.
+To run the script you'll want to run the following commands from the script's
+working directory, substituting in the KV url and your access token for the
+placeholders.
 
 ```bash
-DENO_KV_ACCESS_TOKEN=<replace with your access token> deno run --unstable-kv --allow-read=flags.json --allow-env=DENO_KV_ACCESS_TOKEN --allow-net updateKv.ts
+export URL_TO_KV=<replace with the url to KV>
+export DENO_KV_ACCESS_TOKEN=<replace with your access token> 
+
+deno run --unstable-kv --allow-read=flags.json --allow-env=URL_TO_KV,DENO_KV_ACCESS_TOKEN --allow-net updateKv.ts
 ```
 
 This will store the flag definitions JSON into KV in Deno Deploy for your
