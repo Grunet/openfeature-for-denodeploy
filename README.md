@@ -164,9 +164,7 @@ look like for keeping flag definitions updated in KV
 name: Update Flag Definitions in KV
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   update:
@@ -189,4 +187,33 @@ jobs:
 
 All that's needed is to set `URL_TO_KV` and `DENO_KV_ACCESS_TOKEN` (see above
 for their definitions) as environment secrets in the `flagDefinitions`
-environment (which can be created in Github at Settings > Environments).
+environment (which can be created in Github at Settings > Environments). Then
+manually running the workflow will update the flag definitions in KV.
+
+## Cost Analysis
+
+A flag definitions file will be on the order of 1-10 kb in size. Let's take 10
+kb as the worse scenario. This is small compared to the
+[Deno Deploy free tier limit](https://deno.com/deploy/pricing) of 1 GB for KV
+storage.
+
+Imagine a scenario where a project autoscales from 0 isolates at night to a
+steady 10 isolates during the day, and a feature flag update is made once per
+day.
+
+This will result in 30 writes to KV per month, for a total of 300 kb. 1 KV write
+unit is 1 kb, so this would total 300 write units per month. This is small
+compared to the Deno Deploy free tier limit of 300,000 KV write units per month.
+
+Every isolate spin up will read the 10kb flag definitions from KV, and then a
+feature flag update will cause another read from the KV watcher, for a total of
+20 kb per isolate per day, and so 6,000 kb per month. The feature flag update
+also reads the 10 kb flag definitions from KV, adding 300 kb per month for a
+total of 6,300 kb per month. 1 KV read unit is 4 kb, so this would total 1,575
+read units per month. This is small compared to the Deno Deploy free tier limit
+of 450,000 KV read units per month.
+
+If instead 100 isolates are spun up per day (e.g. from autoscaling back down,
+then up, then down, etc...), the read units used should still be small compared
+to the free tier limits. If instead 1,000 isolates or more are spun up per day,
+the read units used will become a significant fraction of the free tier limits.

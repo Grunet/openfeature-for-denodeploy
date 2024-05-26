@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.4
+
+- Document a projected cost analysis in the README
+
 ## v0.2.3
 
 - Add test coverage in CI
