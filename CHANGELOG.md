@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.0
+
+- Add a method to read the feature flag definitions from KV
+
 ## v0.1.8
 
 - Refactor saving to reduce some code duplication
