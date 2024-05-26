@@ -164,9 +164,7 @@ look like for keeping flag definitions updated in KV
 name: Update Flag Definitions in KV
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   update:
@@ -189,4 +187,5 @@ jobs:
 
 All that's needed is to set `URL_TO_KV` and `DENO_KV_ACCESS_TOKEN` (see above
 for their definitions) as environment secrets in the `flagDefinitions`
-environment (which can be created in Github at Settings > Environments).
+environment (which can be created in Github at Settings > Environments). Then
+manually running the workflow will update the flag definitions in KV.
