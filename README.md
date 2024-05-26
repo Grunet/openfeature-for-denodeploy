@@ -74,6 +74,9 @@ const client = createKvClient(kv);
 const json = await Deno.readTextFile("./flags.json");
 
 await client.updateFlagDefinitions(json);
+
+const flagDefinitions = await client.readFlagDefinitions();
+console.log("New flag definitions:", flagDefinitions);
 ```
 
 Before you can run it you'll need to get 2 things
