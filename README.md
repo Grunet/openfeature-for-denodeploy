@@ -148,13 +148,45 @@ definitions' attribute targeting rules for matches.
 
 ## Other Recommendations
 
-There are 2 suggestions I'd recommend to complete the overall workflow
+There are 2 other suggestions I'd recommend to complete the overall workflow
 
 1. Version Control
 2. Automation
 
-Keeping the flag definitions in a VCS has all the usual benefits of keeping
-things in version control.
+Keeping the flag definitions in a version control system has all the usual
+benefits of keeping things in version control.
 
 And automating updates to the flag definitions (e.g. via Github Actions) also
-brings the usual benefits.
+brings the usual benefits. For example, this is what a Github Workflow could
+look like for keeping flag definitions updated in KV
+
+```yaml
+name: Update Flag Definitions in KV
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    environment: flagDefinitions
+    steps:
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+
+      - uses: denoland/setup-deno@041b854f97b325bd60e53e9dc2de9cb9f9ac0cba # v1.1.4
+        with:
+          deno-version: "1.43.5"
+
+      - name: Update Flag Definitions
+        env:
+          URL_TO_KV: ${{ secrets.URL_TO_KV }}
+          DENO_KV_ACCESS_TOKEN: ${{ secrets.DENO_KV_ACCESS_TOKEN }}
+        run: |
+          deno run --unstable-kv --allow-read=flags.json --allow-env=URL_TO_KV,DENO_KV_ACCESS_TOKEN --allow-net updateFlagDefinitionsInKv.ts
+```
+
+All that's needed is to set `URL_TO_KV` and `DENO_KV_ACCESS_TOKEN` (see above
+for their definitions) as environment secrets in the `flagDefinitions`
+environment (which can be created in Github at Settings > Environments).
