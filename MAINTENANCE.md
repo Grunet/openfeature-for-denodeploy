@@ -6,14 +6,18 @@ This library isn't too large but there are still things to maintain, such as
    - In `.devcontainer/Dockerfile`
    - In `.github/workflows/ci.yaml`
    - In `.github/workflows/publish.yaml`
+   - In `examples/attribute-targeting/updateFlagDefinitionsInKv.yaml`
 2. Github Actions runner version
    - In `.github/workflows/ci.yaml`
    - In `.github/workflows/publish.yaml`
+   - In `examples/attribute-targeting/updateFlagDefinitionsInKv.yaml`
 3. 3rd Party Github Actions
    - In `.github/workflows/ci.yaml`
    - In `.github/workflows/publish.yaml`
+   - In `examples/attribute-targeting/updateFlagDefinitionsInKv.yaml`
 4. Library dependencies
    - In `./src/deps.ts`
+   - In `./src/client.test.ts`
    - In `./src/integration.test.ts`
 
 The emphasis should be on keeping up-to-date with major version changes (to stay
