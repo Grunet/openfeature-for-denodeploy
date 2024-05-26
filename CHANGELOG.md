@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.2
+
+- Add an example Github Workflow to the README
+
 ## v0.2.1
 
 - Update the example to use an environment variable instead of a hard-coded
