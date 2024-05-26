@@ -1,6 +1,6 @@
 {
   "name": "@grunet/openfeature-for-denodeploy",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "exports": "./src/index.ts",
   "tasks": {
     "format": "deno fmt",
