@@ -18,6 +18,7 @@ jobs:
       - run: deno task lintJsDoc
       - run: deno task checkJsDocTypes
       - run: deno task test
+      - run: deno task testCoverage
 
   publishDryRun:
     runs-on: ubuntu-24.04
