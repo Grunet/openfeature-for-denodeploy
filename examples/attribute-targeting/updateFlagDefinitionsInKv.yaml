@@ -2,8 +2,9 @@
 # To test this workflow:
 # 1. Copy it to .github/workflows
 # 2. Add a working-directory of examples/attribute-targeting to the Update FLag Definitions step
-# 3. Remove the main branch restriction of on:push:
-# 4. Add URL_TO_KV and DENO_KV_ACCESS_TOKEN as environment secrets
+# 3. Add URL_TO_KV and DENO_KV_ACCESS_TOKEN as environment secrets
+# 4. Remove the main branch restriction of on:push:
+# Then test by pushing changes to a test branch
 
 name: Update Flag Definitions in KV
 
