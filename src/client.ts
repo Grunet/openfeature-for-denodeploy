@@ -14,6 +14,10 @@ interface IKvClient {
    * Deletes the feature flag defintions stored in KV
    */
   deleteFlagDefinitions(): Promise<void>;
+  /**
+   * Reads the feature flag definitions stored in KV
+   */
+  readFlagDefinitions(): Promise<unknown>;
 }
 
 class KvClient implements IKvClient {
@@ -29,6 +33,12 @@ class KvClient implements IKvClient {
 
   async deleteFlagDefinitions(): Promise<void> {
     await this.#kv.delete([FEATURE_FLAGS_KEY]);
+  }
+
+  async readFlagDefinitions(): Promise<unknown> {
+    const kvJson = await this.#kv.get([FEATURE_FLAGS_KEY]);
+
+    return kvJson.value;
   }
 }
 
